@@ -106,12 +106,17 @@ class YamlProvider
             $yamlFiles[$iterator]['path'] = $_filePath;
 
             if (false === file_exists($_filePath . $_fileName)) {
-                throw new FileNotFoundException(
-                    null,
-                    0,
-                    null,
-                    $_filePath.$_fileName
-                );
+
+                if (false === file_exists($_filePath . 'd.' . $_fileName)) {
+                    throw new FileNotFoundException(
+                        null,
+                        0,
+                        null,
+                        $_filePath.$_fileName
+                    );
+                } else {
+                    $yamlFiles[$iterator]['name'] = 'd.' . $_fileName;
+                }
             }
 
             $iterator++;
